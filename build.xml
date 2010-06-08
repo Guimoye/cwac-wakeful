@@ -80,5 +80,26 @@
             <fileset dir="gen" includes="**/*"/>
         </delete>
     </target>
+    
+    <target name="parcel" depends="jar">
+        <exec executable="parcel">
+            <arg value="package" />
+            <arg value="parcel.json" />
+            <arg value="--dir" />
+            <arg value="parcel" />
+            <arg value="-j" />
+            <arg value="bin/CWAC-Wakeful.jar" />
+            <arg value="-d" />
+            <arg value="README.markdown" />
+            <arg value="LICENSE" />
+        </exec>
+    </target>
+
+    <target name="lint">
+        <exec executable="parcel">
+            <arg value="lint" />
+            <arg value="parcel.json" />
+        </exec>
+    </target>
 
 </project>

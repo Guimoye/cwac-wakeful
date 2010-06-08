@@ -45,6 +45,15 @@ abstract public class WakefulIntentService extends IntentService {
 		return(lockStatic);
 	}
 	
+	public static void sendWakefulWork(Context ctxt, Intent i) {
+		acquireStaticLock(ctxt);
+		ctxt.startService(i);
+	}
+	
+	public static void sendWakefulWork(Context ctxt, Class clsService) {
+		sendWakefulWork(ctxt, new Intent(ctxt, clsService));
+	}
+	
 	public WakefulIntentService(String name) {
 		super(name);
 	}

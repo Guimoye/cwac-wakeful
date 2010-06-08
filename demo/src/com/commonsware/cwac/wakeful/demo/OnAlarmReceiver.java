@@ -23,8 +23,6 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 public class OnAlarmReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		WakefulIntentService.acquireStaticLock(context);
-		
-		context.startService(new Intent(context, AppService.class));
+		WakefulIntentService.sendWakefulWork(context, AppService.class);
 	}
 }
