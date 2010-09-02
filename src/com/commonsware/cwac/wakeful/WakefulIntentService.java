@@ -19,6 +19,7 @@ import android.app.PendingIntent;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
@@ -26,12 +27,8 @@ import android.util.Log;
 abstract public class WakefulIntentService extends IntentService {
 	abstract protected void doWakefulWork(Intent intent);
 	
-	public static final String LOCK_NAME_STATIC="com.commonsware.cwac.wakeful.WakefulIntentService";
+	private static final String LOCK_NAME_STATIC="com.commonsware.cwac.wakeful.WakefulIntentService";
 	private static PowerManager.WakeLock lockStatic=null;
-	
-	public static void acquireStaticLock(Context context) {
-		getLock(context).acquire();
-	}
 	
 	synchronized private static PowerManager.WakeLock getLock(Context context) {
 		if (lockStatic==null) {
@@ -46,7 +43,15 @@ abstract public class WakefulIntentService extends IntentService {
 	}
 	
 	public static void sendWakefulWork(Context ctxt, Intent i) {
-		acquireStaticLock(ctxt);
+		if (PackageManager.PERMISSION_DENIED==ctxt
+																						.getPackageManager()
+																						.checkPermission("android.permission.WAKE_LOCK",
+																														 ctxt.getPackageName())) {
+			throw new RuntimeException("Application requires the WAKE_LOCK permission!");
+		}
+		
+		
+		getLock(ctxt).acquire();
 		ctxt.startService(i);
 	}
 	

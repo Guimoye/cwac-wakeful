@@ -16,9 +16,9 @@ the phone may fall back asleep.
 `WakefulIntentService` attempts to combat this by combining
 the ease of `IntentService` with a partial `WakeLock`.
 
-This is available from [the Android Parcel Project](http://andparcel.com) as the
-`cwac-wakeful` parcel, or as a JAR file from the downloads
-area of this GitHub repo.
+This is available as a JAR file from the downloads area of this GitHub repo.
+The project itself is set up as an Android library project,
+in case you wish to use the source code in that fashion.
 
 Usage
 -----
@@ -49,13 +49,15 @@ And that's it. `WakefulIntentService` handles the rest.
 NOTE: this only works with local services. You have no means
 of accessing the static WakeLock of a remote service.
 
+NOTE #2: Your application must hold the `WAKE_LOCK` permission.
+
 Dependencies
 ------------
 None.
 
 Version
 -------
-This is version v0.2.0 of this module, meaning it is moving up in the
+This is version v0.3.0 of this module, meaning it is moving up in the
 world.
 
 Demo
@@ -65,7 +67,9 @@ an `OnBootReceiver` designed to be attached to the `BOOT_COMPLETED`
 broadcast `Intent`. `OnBootReceiver` schedules an alarm, which is sent
 to `OnAlarmReceiver`. `OnAlarmReceiver` in turn asks `AppService` (which
 extends WakefulIntentService) to do some work in a background
-thread.
+thread. It uses
+the library project itself to access the source code and
+resources of the WakefulIntentService library.
 
 Note that when you build the JAR via `ant jar`, the sample
 activity is not included, nor any resources -- only the
@@ -82,5 +86,9 @@ Questions
 If you have questions regarding the use of this code, please
 join and ask them on the [cw-android Google Group][gg]. Be sure to
 indicate which CWAC module you have questions about.
+
+Release Notes
+-------------
+v0.3.0: converted to Android library project, added test for `WAKE_LOCK` permission
 
 [gg]: http://groups.google.com/group/cw-android
