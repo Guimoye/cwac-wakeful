@@ -20,6 +20,12 @@ This is available as a JAR file from the downloads area of this GitHub repo.
 The project itself is set up as an Android library project,
 in case you wish to use the source code in that fashion.
 
+**NOTE**: `WakefulIntentService` v0.4.0 and newer requires Android 2.0+, so it
+can take advantage of `onStartCommand()` for better handling of
+crashed services. Use earlier versions of `WakefulIntentService` if
+you wish to try to use it on older versions of Android, though this
+is not supported.
+
 Usage
 -----
 Any component that wants to send work to a
@@ -47,7 +53,7 @@ method, depending on which flavor of that method you use).
 And that's it. `WakefulIntentService` handles the rest.
 
 NOTE: this only works with local services. You have no means
-of accessing the static WakeLock of a remote service.
+of accessing the static `WakeLock` of a remote service.
 
 NOTE #2: Your application must hold the `WAKE_LOCK` permission.
 
@@ -57,8 +63,8 @@ None.
 
 Version
 -------
-This is version v0.3.0 of this module, meaning it is moving up in the
-world.
+This is version v0.4.0 of this module, meaning it is being beaten
+to a pulp by reusers, prompting some revisions.
 
 Demo
 ----
@@ -66,10 +72,10 @@ In the `demo/` project directory and `com.commonsware.cwac.wakeful.demo` package
 an `OnBootReceiver` designed to be attached to the `BOOT_COMPLETED`
 broadcast `Intent`. `OnBootReceiver` schedules an alarm, which is sent
 to `OnAlarmReceiver`. `OnAlarmReceiver` in turn asks `AppService` (which
-extends WakefulIntentService) to do some work in a background
+extends `WakefulIntentService`) to do some work in a background
 thread. It uses
 the library project itself to access the source code and
-resources of the WakefulIntentService library.
+resources of the `WakefulIntentService` library.
 
 Note that when you build the JAR via `ant jar`, the sample
 activity is not included, nor any resources -- only the
@@ -89,6 +95,7 @@ indicate which CWAC module you have questions about.
 
 Release Notes
 -------------
+v0.4.0: switched to `onStartCommand()`, requiring Android 2.0+ (API level 5 or higher)
 v0.3.0: converted to Android library project, added test for `WAKE_LOCK` permission
 
 [gg]: http://groups.google.com/group/cw-android
