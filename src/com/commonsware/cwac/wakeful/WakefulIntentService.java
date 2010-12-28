@@ -64,12 +64,14 @@ abstract public class WakefulIntentService extends IntentService {
 	}
 	
 	@Override
-  public void onStart(Intent intent, int startId) {
+  public int onStartCommand(Intent intent, int flags, int startId) {
 		if (!getLock(this).isHeld()) {	// fail-safe for crash restart
 			getLock(this).acquire();
 		}
 
-		super.onStart(intent, startId);
+		super.onStartCommand(intent, flags, startId);
+		
+		return(START_REDELIVER_INTENT);
 	}
 	
 	@Override
