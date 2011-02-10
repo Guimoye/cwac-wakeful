@@ -95,8 +95,8 @@ indicate which CWAC module you have questions about.
 
 Release Notes
 -------------
-v0.4.1: added `setIntentRedelivery()` call, nuked extraneous permissions check
-v0.4.0: switched to `onStartCommand()`, requiring Android 2.0+ (API level 5 or higher)
-v0.3.0: converted to Android library project, added test for `WAKE_LOCK` permission
+- v0.4.1: added `setIntentRedelivery()` call, nuked extraneous permissions check
+- v0.4.0: switched to `onStartCommand()`, requiring Android 2.0+ (API level 5 or higher)
+- v0.3.0: converted to Android library project, added test for `WAKE_LOCK` permission
 
 [gg]: http://groups.google.com/group/cw-android
