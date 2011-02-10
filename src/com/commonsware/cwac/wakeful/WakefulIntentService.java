@@ -43,14 +43,6 @@ abstract public class WakefulIntentService extends IntentService {
 	}
 	
 	public static void sendWakefulWork(Context ctxt, Intent i) {
-		if (PackageManager.PERMISSION_DENIED==ctxt
-																						.getPackageManager()
-																						.checkPermission("android.permission.WAKE_LOCK",
-																														 ctxt.getPackageName())) {
-			throw new RuntimeException("Application requires the WAKE_LOCK permission!");
-		}
-		
-		
 		getLock(ctxt).acquire();
 		ctxt.startService(i);
 	}
@@ -61,6 +53,7 @@ abstract public class WakefulIntentService extends IntentService {
 	
 	public WakefulIntentService(String name) {
 		super(name);
+		setIntentRedelivery(true);
 	}
 	
 	@Override
