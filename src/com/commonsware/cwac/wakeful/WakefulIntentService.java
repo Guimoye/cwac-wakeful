@@ -28,7 +28,7 @@ abstract public class WakefulIntentService extends IntentService {
 	abstract protected void doWakefulWork(Intent intent);
 	
 	private static final String LOCK_NAME_STATIC="com.commonsware.cwac.wakeful.WakefulIntentService";
-	private static PowerManager.WakeLock lockStatic=null;
+	private static volatile PowerManager.WakeLock lockStatic=null;
 	
 	synchronized private static PowerManager.WakeLock getLock(Context context) {
 		if (lockStatic==null) {
