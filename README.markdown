@@ -63,7 +63,7 @@ None.
 
 Version
 -------
-This is version v0.4.1 of this module, meaning it is being beaten
+This is version v0.4.2 of this module, meaning it is being beaten
 to a pulp by reusers, prompting some revisions.
 
 Demo
@@ -95,6 +95,7 @@ indicate which CWAC module you have questions about.
 
 Release Notes
 -------------
+- v0.4.2: added `volatile` keyword to static `WakeLock` for better double-checked locking implementation
 - v0.4.1: added `setIntentRedelivery()` call, nuked extraneous permissions check
 - v0.4.0: switched to `onStartCommand()`, requiring Android 2.0+ (API level 5 or higher)
 - v0.3.0: converted to Android library project, added test for `WAKE_LOCK` permission
