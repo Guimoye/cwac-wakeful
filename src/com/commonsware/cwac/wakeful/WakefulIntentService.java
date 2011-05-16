@@ -58,8 +58,8 @@ abstract public class WakefulIntentService extends IntentService {
 	
 	@Override
   public int onStartCommand(Intent intent, int flags, int startId) {
-		if (!getLock(this).isHeld()) {	// fail-safe for crash restart
-			getLock(this).acquire();
+		if ((flags & START_FLAG_REDELIVERY)!=0) { // if crash restart...
+			getLock(this).acquire();								// ...then quick grab the lock
 		}
 
 		super.onStartCommand(intent, flags, startId);
