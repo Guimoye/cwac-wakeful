@@ -43,7 +43,7 @@ abstract public class WakefulIntentService extends IntentService {
 	}
 	
 	public static void sendWakefulWork(Context ctxt, Intent i) {
-		getLock(ctxt).acquire();
+		getLock(ctxt.getApplicationContext()).acquire();
 		ctxt.startService(i);
 	}
 	
