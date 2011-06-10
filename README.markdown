@@ -63,7 +63,7 @@ None.
 
 Version
 -------
-This is version v0.4.3 of this module, meaning it is being beaten
+This is version v0.4.4 of this module, meaning it is being beaten
 to a pulp by reusers, prompting some revisions.
 
 Demo
@@ -95,6 +95,7 @@ indicate which CWAC module you have questions about.
 
 Release Notes
 -------------
+- v0.4.4: switched to `Application` as the `Context` for the `WakeLock`
 - v0.4.3: added better recovery from an `Intent` redelivery condition
 - v0.4.2: added `volatile` keyword to static `WakeLock` for better double-checked locking implementation
 - v0.4.1: added `setIntentRedelivery()` call, nuked extraneous permissions check
