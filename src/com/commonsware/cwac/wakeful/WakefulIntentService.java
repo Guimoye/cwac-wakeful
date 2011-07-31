@@ -14,15 +14,10 @@
 
 package com.commonsware.cwac.wakeful;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.IBinder;
 import android.os.PowerManager;
-import android.util.Log;
 
 abstract public class WakefulIntentService extends IntentService {
 	abstract protected void doWakefulWork(Intent intent);
@@ -47,7 +42,7 @@ abstract public class WakefulIntentService extends IntentService {
 		ctxt.startService(i);
 	}
 	
-	public static void sendWakefulWork(Context ctxt, Class clsService) {
+	public static void sendWakefulWork(Context ctxt, Class<?> clsService) {
 		sendWakefulWork(ctxt, new Intent(ctxt, clsService));
 	}
 	
@@ -59,7 +54,7 @@ abstract public class WakefulIntentService extends IntentService {
 	@Override
   public int onStartCommand(Intent intent, int flags, int startId) {
 		if ((flags & START_FLAG_REDELIVERY)!=0) { // if crash restart...
-			getLock(this).acquire();								// ...then quick grab the lock
+			getLock(this.getApplicationContext()).acquire();	// ...then quick grab the lock
 		}
 
 		super.onStartCommand(intent, flags, startId);
@@ -73,7 +68,7 @@ abstract public class WakefulIntentService extends IntentService {
 			doWakefulWork(intent);
 		}
 		finally {
-			getLock(this).release();
+			getLock(this.getApplicationContext()).release();
 		}
 	}
 }
