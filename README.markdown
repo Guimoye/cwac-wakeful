@@ -57,6 +57,10 @@ of accessing the static `WakeLock` of a remote service.
 
 NOTE #2: Your application must hold the `WAKE_LOCK` permission.
 
+NOTE #3: If you get an "`WakeLock` under-locked" exception, make sure
+that you are not starting your service by some means other than
+`sendWakefulWork()`.
+
 Dependencies
 ------------
 None.
