@@ -26,8 +26,8 @@ crashed services. Use earlier versions of `WakefulIntentService` if
 you wish to try to use it on older versions of Android, though this
 is not supported.
 
-Usage
------
+Basic Usage
+-----------
 Any component that wants to send work to a
 `WakefulIntentService` subclass needs to call either:
 
@@ -61,25 +61,76 @@ NOTE #3: If you get an "`WakeLock` under-locked" exception, make sure
 that you are not starting your service by some means other than
 `sendWakefulWork()`.
 
+Alarm Usage
+-----------
+If you want to slightly simplify your use of `WakefulIntentService`
+in conjunction with `AlarmManager`, you can do the following:
+
+1. Implement your `WakefulIntentService` and `doWakefulWork()`
+as described above.
+
+2. Create a class implementing the `WakefulIntentService.AlarmListener`
+interface. This class needs to have a no-argument public constructor
+in addition to the interface method implementations. One method
+is `scheduleAlarms()`, where you are passed in an `AlarmManager`,
+a `PendingIntent`, and a `Context`, and your mission is to schedule
+your alarms using the supplied `PendingIntent`. You also implement
+`sendWakefulWork()`, which is passed a `Context`, and is where
+you call `sendWakefulWork()` upon your `WakefulIntentService`
+implementation.
+
+3. Create an XML metadata file where you identify the class
+that implements `WakefulIntentService.AlarmListener` from the
+previous step, akin to:
+
+  <WakefulIntentService
+    listener="com.commonsware.cwac.wakeful.demo.AppListener"
+  />
+
+4. Register `com.commonsware.cwac.wakeful.AlarmReceiver`
+as a `<receiver>` in your manifest, set to respond to
+`ACTION_BOOT_COMPLETED` broadcasts, and with a `com.commonsware.cwac.wakeful`
+`<meta-data>` element pointing to the XML resource from 
+the previous step, akin to:
+
+    <receiver android:name="com.commonsware.cwac.wakeful.AlarmReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="com.commonsware.cwac.wakeful"
+        android:resource="@xml/wakeful"/>
+    </receiver>
+
+5. When you wish to manually set up the alarms (e.g., on
+first run of your app), create an instance of your `AlarmListener`
+and call `scheduleAlarms()` on the `WakefulIntentService`
+class, passing in the `AlarmListener` and a `Context` (e.g.,
+the activity that is trying to set up the alarms).
+
+Over time, this portion of the framework will be expanded
+further to help consolidate a good usage pattern for
+managing alarms.
+
 Dependencies
 ------------
 None.
 
 Version
 -------
-This is version v0.4.5 of this module, meaning it is being beaten
-to a pulp by reusers, prompting some revisions.
+This is version v0.5.0 of this module, meaning it is proving
+to be surprisingly popular.
 
 Demo
 ----
 In the `demo/` project directory and `com.commonsware.cwac.wakeful.demo` package you will find
-an `OnBootReceiver` designed to be attached to the `BOOT_COMPLETED`
-broadcast `Intent`. `OnBootReceiver` schedules an alarm, which is sent
-to `OnAlarmReceiver`. `OnAlarmReceiver` in turn asks `AppService` (which
-extends `WakefulIntentService`) to do some work in a background
-thread. It uses
-the library project itself to access the source code and
-resources of the `WakefulIntentService` library.
+an `AppListener`, which is an implementation of `AlarmListener`,
+and `AppService`, which
+extends `WakefulIntentService`. `AppService` pretends to do some work in a background
+thread. All of this is set up via a `DemoActivity` (required
+to move the application out of the "stopped" state on Android 3.1+),
+and if needed on a reboot.
 
 Note that when you build the JAR via `ant jar`, the sample
 activity is not included, nor any resources -- only the
@@ -100,6 +151,7 @@ and stack traces if you are encountering crashes.
 
 Release Notes
 -------------
+- v0.5.0: added the `AlarmListener` portion of the framework
 - v0.4.5: completed switch to `Application` as the `Context` for the `WakeLock`
 - v0.4.4: switched to `Application` as the `Context` for the `WakeLock`
 - v0.4.3: added better recovery from an `Intent` redelivery condition
@@ -108,4 +160,3 @@ Release Notes
 - v0.4.0: switched to `onStartCommand()`, requiring Android 2.0+ (API level 5 or higher)
 - v0.3.0: converted to Android library project, added test for `WAKE_LOCK` permission
 
-[gg]: http://groups.google.com/group/cw-android
