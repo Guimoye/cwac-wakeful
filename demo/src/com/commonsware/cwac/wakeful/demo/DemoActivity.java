@@ -1,5 +1,5 @@
 /***
-  Copyright (c) 2009 CommonsWare, LLC
+  Copyright (c) 2009-11 CommonsWare, LLC
   
   Licensed under the Apache License, Version 2.0 (the "License"); you may
   not use this file except in compliance with the License. You may obtain
@@ -14,15 +14,22 @@
 
 package com.commonsware.cwac.wakeful.demo;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.Toast;
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
-public class OnAlarmReceiver extends BroadcastReceiver {
+public class DemoActivity extends Activity {
   @Override
-  public void onReceive(Context context, Intent intent) {
-    WakefulIntentService.sendWakefulWork(context, AppService.class);
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    
+    WakefulIntentService.scheduleAlarms(new AppListener(),
+                                        this);
+    
+    Toast.makeText(this, "Alarms active!",
+                   Toast.LENGTH_LONG).show();
+    
+    finish();
   }
 }

@@ -1,5 +1,5 @@
 /***
-  Copyright (c) 2009 CommonsWare, LLC
+  Copyright (c) 2009-11 CommonsWare, LLC
   
   Licensed under the Apache License, Version 2.0 (the "License"); you may
   not use this file except in compliance with the License. You may obtain
@@ -14,7 +14,9 @@
 
 package com.commonsware.cwac.wakeful;
 
+import android.app.AlarmManager;
 import android.app.IntentService;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
@@ -46,6 +48,16 @@ abstract public class WakefulIntentService extends IntentService {
     sendWakefulWork(ctxt, new Intent(ctxt, clsService));
   }
   
+  public static void scheduleAlarms(AlarmListener listener,
+                                    Context ctxt) {
+    AlarmManager mgr=(AlarmManager)ctxt.getSystemService(Context.ALARM_SERVICE);
+    Intent i=new Intent(ctxt, AlarmReceiver.class);
+    PendingIntent pi=PendingIntent.getBroadcast(ctxt, 0,
+                                                i, 0);
+
+    listener.scheduleAlarms(mgr, pi, ctxt);
+  }
+  
   public WakefulIntentService(String name) {
     super(name);
     setIntentRedelivery(true);
@@ -70,5 +82,11 @@ abstract public class WakefulIntentService extends IntentService {
     finally {
       getLock(this.getApplicationContext()).release();
     }
+  }
+  
+  public interface AlarmListener {
+    void scheduleAlarms(AlarmManager mgr, PendingIntent pi,
+                        Context ctxt);
+    void sendWakefulWork(Context ctxt);
   }
 }

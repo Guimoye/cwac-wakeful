@@ -1,5 +1,5 @@
 /***
-  Copyright (c) 2009 CommonsWare, LLC
+  Copyright (c) 2009-11 CommonsWare, LLC
   
   Licensed under the Apache License, Version 2.0 (the "License"); you may
   not use this file except in compliance with the License. You may obtain
@@ -15,13 +15,7 @@
 package com.commonsware.cwac.wakeful.demo;
 
 import android.content.Intent;
-import android.os.Environment;
 import android.util.Log;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Date;
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 public class AppService extends WakefulIntentService {
@@ -31,19 +25,6 @@ public class AppService extends WakefulIntentService {
 
   @Override
   protected void doWakefulWork(Intent intent) {
-    File log=new File(Environment.getExternalStorageDirectory(),
-                      "AlarmLog.txt");
-    
-    try {
-      BufferedWriter out=new BufferedWriter(new FileWriter(log.getAbsolutePath(),
-                                                           log.exists()));
-      
-      out.write(new Date().toString());
-      out.write("\n");
-      out.close();
-    }
-    catch (IOException e) {
-      Log.e("AppService", "Exception appending to log file", e);
-    }
+    Log.i("AppService", "I'm awake! I'm awake! (yawn)");
   }
 }

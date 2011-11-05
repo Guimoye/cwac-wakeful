@@ -1,5 +1,5 @@
 /***
-  Copyright (c) 2009 CommonsWare, LLC
+  Copyright (c) 2009-11 CommonsWare, LLC
   
   Licensed under the Apache License, Version 2.0 (the "License"); you may
   not use this file except in compliance with the License. You may obtain
@@ -16,24 +16,25 @@ package com.commonsware.cwac.wakeful.demo;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
 import android.os.SystemClock;
+import com.commonsware.cwac.wakeful.WakefulIntentService;
 
-public class OnBootReceiver extends BroadcastReceiver {
+public class AppListener
+  implements WakefulIntentService.AlarmListener {
   private static final int PERIOD=300000;   // 5 minutes
   
   @Override
-  public void onReceive(Context context, Intent intent) {
-    AlarmManager mgr=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-    Intent i=new Intent(context, OnAlarmReceiver.class);
-    PendingIntent pi=PendingIntent.getBroadcast(context, 0,
-                                              i, 0);
-    
+  public void scheduleAlarms(AlarmManager mgr, PendingIntent pi,
+                             Context ctxt) {
     mgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                       SystemClock.elapsedRealtime()+60000,
                       PERIOD,
                       pi);
+  }
+
+  @Override
+  public void sendWakefulWork(Context ctxt) {
+    WakefulIntentService.sendWakefulWork(ctxt, AppService.class);
   }
 }
