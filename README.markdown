@@ -103,9 +103,9 @@ the previous step, akin to:
         android:resource="@xml/wakeful"/>
     </receiver>
 
-(note that you will need the `RECEIVE_BOOT_COMPLETED` permission as well)
+5. Add the `RECEIVE_BOOT_COMPLETED` permission to your manifest.
 
-5. When you wish to manually set up the alarms (e.g., on
+6. When you wish to manually set up the alarms (e.g., on
 first run of your app), create an instance of your `AlarmListener`
 and call `scheduleAlarms()` on the `WakefulIntentService`
 class, passing in the `AlarmListener` and a `Context` (e.g.,
