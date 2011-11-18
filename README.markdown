@@ -66,10 +66,10 @@ Alarm Usage
 If you want to slightly simplify your use of `WakefulIntentService`
 in conjunction with `AlarmManager`, you can do the following:
 
-1. Implement your `WakefulIntentService` and `doWakefulWork()`
+ 1. Implement your `WakefulIntentService` and `doWakefulWork()`
 as described above.
 
-2. Create a class implementing the `WakefulIntentService.AlarmListener`
+ 2. Create a class implementing the `WakefulIntentService.AlarmListener`
 interface. This class needs to have a no-argument public constructor
 in addition to the interface method implementations. One method
 is `scheduleAlarms()`, where you are passed in an `AlarmManager`,
@@ -79,7 +79,7 @@ your alarms using the supplied `PendingIntent`. You also implement
 you call `sendWakefulWork()` upon your `WakefulIntentService`
 implementation.
 
-3. Create an XML metadata file where you identify the class
+ 3. Create an XML metadata file where you identify the class
 that implements `WakefulIntentService.AlarmListener` from the
 previous step, akin to:
 
@@ -87,7 +87,7 @@ previous step, akin to:
     listener="com.commonsware.cwac.wakeful.demo.AppListener"
   />
 
-4. Register `com.commonsware.cwac.wakeful.AlarmReceiver`
+ 4. Register `com.commonsware.cwac.wakeful.AlarmReceiver`
 as a `<receiver>` in your manifest, set to respond to
 `ACTION_BOOT_COMPLETED` broadcasts, and with a `com.commonsware.cwac.wakeful`
 `<meta-data>` element pointing to the XML resource from 
@@ -103,9 +103,9 @@ the previous step, akin to:
         android:resource="@xml/wakeful"/>
     </receiver>
 
-5. Add the `RECEIVE_BOOT_COMPLETED` permission to your manifest.
+ 5. Add the `RECEIVE_BOOT_COMPLETED` permission to your manifest.
 
-6. When you wish to manually set up the alarms (e.g., on
+ 6. When you wish to manually set up the alarms (e.g., on
 first run of your app), create an instance of your `AlarmListener`
 and call `scheduleAlarms()` on the `WakefulIntentService`
 class, passing in the `AlarmListener` and a `Context` (e.g.,
