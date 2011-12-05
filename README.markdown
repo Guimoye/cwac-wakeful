@@ -77,7 +77,11 @@ a `PendingIntent`, and a `Context`, and your mission is to schedule
 your alarms using the supplied `PendingIntent`. You also implement
 `sendWakefulWork()`, which is passed a `Context`, and is where
 you call `sendWakefulWork()` upon your `WakefulIntentService`
-implementation.
+implementation. And, you need to implement `getMaxAge()`, which
+should return the time in milliseconds after which, if we have
+not seen an alarm go off, we should assume that the alarms were
+canceled (e.g., application was force-stopped by the user), and
+should reschedule them.
 
  3. Create an XML metadata file where you identify the class
 that implements `WakefulIntentService.AlarmListener` from the
@@ -115,13 +119,17 @@ Over time, this portion of the framework will be expanded
 further to help consolidate a good usage pattern for
 managing alarms.
 
+Additional documentation can be found in the "AlarmManager: Making the Services Run On
+Time" section of [this free excerpt](http://commonsware.com/AdvAndroid/wakeful.pdf)
+from [The Busy Coder's Guide to Advanced Android Development](http://commonsware.com/AdvAndroid).
+
 Dependencies
 ------------
 None.
 
 Version
 -------
-This is version v0.5.0 of this module, meaning it is proving
+This is version v0.5.1 of this module, meaning it is proving
 to be surprisingly popular.
 
 Demo
@@ -153,6 +161,7 @@ and stack traces if you are encountering crashes.
 
 Release Notes
 -------------
+- v0.5.1: semi-automatically handle canceled alarms (e.g., app force-stopped)
 - v0.5.0: added the `AlarmListener` portion of the framework
 - v0.4.5: completed switch to `Application` as the `Context` for the `WakeLock`
 - v0.4.4: switched to `Application` as the `Context` for the `WakeLock`

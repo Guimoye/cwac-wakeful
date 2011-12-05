@@ -19,12 +19,14 @@ import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.PowerManager;
 
 abstract public class WakefulIntentService extends IntentService {
   abstract protected void doWakefulWork(Intent intent);
   
-  private static final String LOCK_NAME_STATIC="com.commonsware.cwac.wakeful.WakefulIntentService";
+  static final String NAME="com.commonsware.cwac.wakeful.WakefulIntentService";
+  static final String LAST_ALARM="lastAlarm";
   private static volatile PowerManager.WakeLock lockStatic=null;
   
   synchronized private static PowerManager.WakeLock getLock(Context context) {
@@ -32,7 +34,7 @@ abstract public class WakefulIntentService extends IntentService {
       PowerManager mgr=(PowerManager)context.getSystemService(Context.POWER_SERVICE);
       
       lockStatic=mgr.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                            LOCK_NAME_STATIC);
+                                 NAME);
       lockStatic.setReferenceCounted(true);
     }
     
@@ -50,12 +52,25 @@ abstract public class WakefulIntentService extends IntentService {
   
   public static void scheduleAlarms(AlarmListener listener,
                                     Context ctxt) {
-    AlarmManager mgr=(AlarmManager)ctxt.getSystemService(Context.ALARM_SERVICE);
-    Intent i=new Intent(ctxt, AlarmReceiver.class);
-    PendingIntent pi=PendingIntent.getBroadcast(ctxt, 0,
-                                                i, 0);
-
-    listener.scheduleAlarms(mgr, pi, ctxt);
+    scheduleAlarms(listener, ctxt, true);
+  }
+  
+  public static void scheduleAlarms(AlarmListener listener,
+                                    Context ctxt,
+                                    boolean force) {
+    SharedPreferences prefs=ctxt.getSharedPreferences(NAME, 0);
+    long lastAlarm=prefs.getLong(LAST_ALARM, 0);
+    
+    if (lastAlarm==0 || force ||
+        (System.currentTimeMillis()>lastAlarm &&
+            System.currentTimeMillis()-lastAlarm>listener.getMaxAge())) {
+      AlarmManager mgr=(AlarmManager)ctxt.getSystemService(Context.ALARM_SERVICE);
+      Intent i=new Intent(ctxt, AlarmReceiver.class);
+      PendingIntent pi=PendingIntent.getBroadcast(ctxt, 0,
+                                                  i, 0);
+  
+      listener.scheduleAlarms(mgr, pi, ctxt);
+    }
   }
   
   public WakefulIntentService(String name) {
@@ -88,5 +103,6 @@ abstract public class WakefulIntentService extends IntentService {
     void scheduleAlarms(AlarmManager mgr, PendingIntent pi,
                         Context ctxt);
     void sendWakefulWork(Context ctxt);
+    long getMaxAge();
   }
 }

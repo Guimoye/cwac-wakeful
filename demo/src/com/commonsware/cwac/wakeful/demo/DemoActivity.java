@@ -25,7 +25,7 @@ public class DemoActivity extends Activity {
     super.onCreate(savedInstanceState);
     
     WakefulIntentService.scheduleAlarms(new AppListener(),
-                                        this);
+                                        this, false);
     
     Toast.makeText(this, "Alarms active!",
                    Toast.LENGTH_LONG).show();

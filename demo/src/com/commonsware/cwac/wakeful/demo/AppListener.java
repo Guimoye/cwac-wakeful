@@ -10,7 +10,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-*/
+ */
 
 package com.commonsware.cwac.wakeful.demo;
 
@@ -20,21 +20,19 @@ import android.content.Context;
 import android.os.SystemClock;
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
-public class AppListener
-  implements WakefulIntentService.AlarmListener {
-  private static final int PERIOD=300000;   // 5 minutes
-  
-  @Override
+public class AppListener implements WakefulIntentService.AlarmListener {
   public void scheduleAlarms(AlarmManager mgr, PendingIntent pi,
                              Context ctxt) {
-    mgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                      SystemClock.elapsedRealtime()+60000,
-                      PERIOD,
-                      pi);
+    mgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            SystemClock.elapsedRealtime()+60000,
+                            AlarmManager.INTERVAL_FIFTEEN_MINUTES, pi);
   }
 
-  @Override
   public void sendWakefulWork(Context ctxt) {
     WakefulIntentService.sendWakefulWork(ctxt, AppService.class);
+  }
+
+  public long getMaxAge() {
+    return(AlarmManager.INTERVAL_FIFTEEN_MINUTES*2);
   }
 }
