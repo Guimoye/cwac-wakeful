@@ -30,7 +30,7 @@ import android.util.Log;
 import com.commonsware.cwac.wakeful.WakefulIntentService.AlarmListener;
 
 public class AlarmReceiver extends BroadcastReceiver {
-  private final String WAKEFUL_META_DATA="com.commonsware.cwac.wakeful";
+  private static final String WAKEFUL_META_DATA="com.commonsware.cwac.wakeful";
   
   @Override
   public void onReceive(Context ctxt, Intent intent) {
