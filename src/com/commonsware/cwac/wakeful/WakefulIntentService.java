@@ -73,6 +73,14 @@ abstract public class WakefulIntentService extends IntentService {
     }
   }
   
+  public static void cancelAlarms(Context ctxt){
+    AlarmManager mgr=(AlarmManager)ctxt.getSystemService(Context.ALARM_SERVICE);
+    Intent i=new Intent(ctxt, AlarmReceiver.class);
+    PendingIntent pi=PendingIntent.getBroadcast(ctxt, 0, i, 0);
+    
+    mgr.cancel(pi);
+  }
+  
   public WakefulIntentService(String name) {
     super(name);
     setIntentRedelivery(true);
