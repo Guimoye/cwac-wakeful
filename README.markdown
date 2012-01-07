@@ -113,7 +113,10 @@ Finally, when you wish to manually set up the alarms (e.g., on
 first run of your app), create an instance of your `AlarmListener`
 and call `scheduleAlarms()` on the `WakefulIntentService`
 class, passing in the `AlarmListener` and a `Context` (e.g.,
-the activity that is trying to set up the alarms).
+the activity that is trying to set up the alarms). If you are only
+scheduling alarms using the single provided `PendingIntent`, you
+can also call `cancelAlarms()` on the `WakefulIntentService` class
+to cancel any outstanding alarms.
 
 Over time, this portion of the framework will be expanded
 further to help consolidate a good usage pattern for
@@ -129,7 +132,7 @@ None.
 
 Version
 -------
-This is version v0.5.1 of this module, meaning it is proving
+This is version v0.6.0 of this module, meaning it is proving
 to be surprisingly popular.
 
 Demo
@@ -165,6 +168,7 @@ for reproducing the issue.
 Do not ask for help via Twitter.
 Release Notes
 -------------
+- v0.6.0: added `cancelAlarms()` to `WakefulIntentService`
 - v0.5.1: semi-automatically handle canceled alarms (e.g., app force-stopped)
 - v0.5.0: added the `AlarmListener` portion of the framework
 - v0.4.5: completed switch to `Application` as the `Context` for the `WakeLock`
