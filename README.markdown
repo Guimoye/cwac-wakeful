@@ -118,6 +118,12 @@ scheduling alarms using the single provided `PendingIntent`, you
 can also call `cancelAlarms()` on the `WakefulIntentService` class
 to cancel any outstanding alarms.
 
+For production use, ProGuard may rename your `AlarmListener`
+class, which will foul up access to your metadata. To stop this
+from happening, you
+[will need to add a `-keep` line to your ProGuard configuration file](http://developer.android.com/guide/developing/tools/proguard.html#configuring)
+(e.g., `proguard.cfg`) to stop ProGuard from renaming it.
+
 Over time, this portion of the framework will be expanded
 further to help consolidate a good usage pattern for
 managing alarms.
@@ -168,6 +174,7 @@ for reproducing the issue.
 Do not ask for help via Twitter.
 Release Notes
 -------------
+- v0.6.1: replaced `AlarmListener` `Log` lines with `RuntimeExceptions`
 - v0.6.0: added `cancelAlarms()` to `WakefulIntentService`
 - v0.5.1: semi-automatically handle canceled alarms (e.g., app force-stopped)
 - v0.5.0: added the `AlarmListener` portion of the framework
