@@ -174,6 +174,7 @@ for reproducing the issue.
 Do not ask for help via Twitter.
 Release Notes
 -------------
+- v0.6.2: added more fail-safes around `WakeLock` acquisition and release
 - v0.6.1: replaced `AlarmListener` `Log` lines with `RuntimeExceptions`
 - v0.6.0: added `cancelAlarms()` to `WakefulIntentService`
 - v0.5.1: semi-automatically handle canceled alarms (e.g., app force-stopped)
