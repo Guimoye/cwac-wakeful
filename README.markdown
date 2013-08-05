@@ -16,7 +16,7 @@ the phone may fall back asleep.
 `WakefulIntentService` attempts to combat this by combining
 the ease of `IntentService` with a partial `WakeLock`.
 
-This is [available as a JAR file](https://github.com/commonsguy/downloads).
+This is [available as a JAR file](https://github.com/commonsguy/cwac-wakeful/releases).
 The project itself is set up as an Android library project,
 in case you wish to use the source code in that fashion.
 
@@ -130,7 +130,7 @@ managing alarms.
 
 Additional documentation can be found in the "AlarmManager: Making the Services Run On
 Time" section of [this free excerpt](http://commonsware.com/AdvAndroid/wakeful.pdf)
-from [The Busy Coder's Guide to Advanced Android Development](http://commonsware.com/AdvAndroid).
+from [The Busy Coder's Guide to Android Development](http://commonsware.com/Android).
 
 Dependencies
 ------------
@@ -142,8 +142,7 @@ that do not work on API Level 7 and are not noted as requiring a higher version.
 
 Version
 -------
-This is version v0.6.0 of this module, meaning it is proving
-to be surprisingly popular.
+This is version v1.0.0 of this module, meaning it is for realz.
 
 Demo
 ----
@@ -176,8 +175,10 @@ If you have encountered what is clearly a bug, please post an [issue](https://gi
 for reproducing the issue.
 
 Do not ask for help via Twitter.
+
 Release Notes
 -------------
+- v1.0.0: anointed major release
 - v0.6.2: added more fail-safes around `WakeLock` acquisition and release
 - v0.6.1: replaced `AlarmListener` `Log` lines with `RuntimeExceptions`
 - v0.6.0: added `cancelAlarms()` to `WakefulIntentService`
