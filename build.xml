@@ -82,61 +82,15 @@
     <!-- version-tag: custom -->
     <import file="${sdk.dir}/tools/ant/build.xml" />
 
-    <target name="dist-dir">
-        <mkdir dir="dist"/>
-    </target>
-
-    <target name="dist-full" depends="dist-dir">
-        <delete file="dist/CWAC-WakefulIntentService-full.zip" />
-        <zip destfile="dist/CWAC-WakefulIntentService-full.zip">
-            <zipfileset
-                dir="."
-                prefix="CWAC-WakefulIntentService"
-                includes="**"
-                excludes="bin/**, dist/**, gen/**, .git/**, .gitignore, demo/bin/**, demo/gen/**"
-            />
-        </zip>
-    </target>
-
-    <target name="dist-lite" depends="dist-dir">
-        <delete file="dist/CWAC-WakefulIntentService-lite.zip" />
-        <zip destfile="dist/CWAC-WakefulIntentService-lite.zip">
-            <zipfileset
-                dir="."
-                prefix="CWAC-WakefulIntentService"
-                includes="**"
-                excludes="bin/**, dist/**, gen/**, .git/**, .gitignore, demo/**"
-            />
-        </zip>
-    </target>
-
-    <target name="jar" depends="debug">
-        <jar
-            destfile="bin/CWAC-WakefulIntentService.jar"
-            basedir="bin/classes"
-        />
-    </target>
-
-    <target name="dist-jar" depends="dist-dir, jar">
-        <delete file="dist/CWAC-WakefulIntentService-jar.zip" />
-        <copy file="bin/CWAC-WakefulIntentService.jar" todir="libs"/>
-        <mkdir dir="tmp" />
-        <mkdir dir="tmp/src" />
-        <zip destfile="dist/CWAC-WakefulIntentService-jar.zip">
-            <zipfileset
-                dir="."
-                prefix="CWAC-WakefulIntentService"
-                includes="**"
-                excludes="tmp/**, bin/**, dist/**, gen/**, .git/**, src/**, .gitignore, demo/**"
-            />
-            <zipfileset
-                dir="tmp"
-                prefix="CWAC-WakefulIntentService"
-                includes="src/"
-            />
-        </zip>
-        <delete dir="tmp"/>
-        <delete file="libs/CWAC-WakefulIntentService.jar" />
-    </target>
+	<target name="jar" depends="release">
+		<delete file="bin/CWAC-WakefulIntentService.jar" />
+    <jar destfile="bin/CWAC-WakefulIntentService.jar">
+      <fileset dir="bin/classes">
+        <exclude name="**/BuildConfig.class" />
+        <exclude name="**/R.class" />
+        <exclude name="**/R$*.class" />
+      </fileset>
+    </jar>
+	</target>
 
 </project>
