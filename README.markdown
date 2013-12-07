@@ -16,7 +16,25 @@ the phone may fall back asleep.
 `WakefulIntentService` attempts to combat this by combining
 the ease of `IntentService` with a partial `WakeLock`.
 
-This is [available as a JAR file](https://github.com/commonsguy/cwac-wakeful/releases).
+This is [available as a JAR file](https://github.com/commonsguy/cwac-wakeful/releases),
+or as an artifact for use with Gradle. To use that, add the following
+blocks to your `build.gradle` file:
+
+```groovy
+repositories {
+    maven {
+        url "https://repo.commonsware.com.s3.amazonaws.com"
+    }
+}
+
+dependencies {
+    compile 'com.commonsware.cwac:wakeful:1.0.1'
+}
+```
+
+Or, if you cannot use SSL, use `http://repo.commonsware.com` for the repository
+URL.
+
 The project itself is set up as an Android library project,
 in case you wish to use the source code in that fashion.
 
@@ -142,7 +160,7 @@ that do not work on API Level 7 and are not noted as requiring a higher version.
 
 Version
 -------
-This is version v1.0.0 of this module, meaning it is for realz.
+This is version v1.0.1 of this module, meaning it is for realz.
 
 Demo
 ----
@@ -178,6 +196,7 @@ Do not ask for help via Twitter.
 
 Release Notes
 -------------
+- v1.0.1: added Gradle build files and published AAR as an artifact
 - v1.0.0: anointed major release
 - v0.6.2: added more fail-safes around `WakeLock` acquisition and release
 - v0.6.1: replaced `AlarmListener` `Log` lines with `RuntimeExceptions`
