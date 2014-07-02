@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.commonsware.cwac:wakeful:1.0.1'
+    compile 'com.commonsware.cwac:wakeful:1.0.+'
 }
 ```
 
@@ -38,11 +38,7 @@ URL.
 The project itself is set up as an Android library project,
 in case you wish to use the source code in that fashion.
 
-**NOTE**: `WakefulIntentService` v0.4.0 and newer requires Android 2.0+, so it
-can take advantage of `onStartCommand()` for better handling of
-crashed services. Use earlier versions of `WakefulIntentService` if
-you wish to try to use it on older versions of Android, though this
-is not supported.
+**NOTE**: The JAR name, as of v1.0.2, has a `cwac-` prefix, to help distinguish it from other JARs.
 
 Basic Usage
 -----------
@@ -146,10 +142,6 @@ Over time, this portion of the framework will be expanded
 further to help consolidate a good usage pattern for
 managing alarms.
 
-Additional documentation can be found in the "AlarmManager: Making the Services Run On
-Time" section of [this free excerpt](http://commonsware.com/AdvAndroid/wakeful.pdf)
-from [The Busy Coder's Guide to Android Development](http://commonsware.com/Android).
-
 Dependencies
 ------------
 None.
@@ -160,7 +152,7 @@ that do not work on API Level 7 and are not noted as requiring a higher version.
 
 Version
 -------
-This is version v1.0.1 of this module, meaning it is for realz.
+This is version v1.0.2 of this module, meaning it is for realz.
 
 Demo
 ----
@@ -172,10 +164,6 @@ thread. All of this is set up via a `DemoActivity` (required
 to move the application out of the "stopped" state on Android 3.1+),
 and if needed on a reboot.
 
-Note that when you build the JAR via `ant jar`, the sample
-activity is not included, nor any resources -- only the
-compiled classes for the actual library are put into the JAR.
-
 License
 -------
 The code in this project is licensed under the Apache
@@ -185,7 +173,8 @@ file.
 Questions
 ---------
 If you have questions regarding the use of this code, please post a question
-on [StackOverflow](http://stackoverflow.com/questions/ask) tagged with `commonsware` and `android`. Be sure to indicate
+on [StackOverflow](http://stackoverflow.com/questions/ask) tagged with
+`commonsware-cwac` and `android` after [searching to see if there already is an answer](https://stackoverflow.com/search?q=[commonsware-cwac]+wakefulintentservice). Be sure to indicate
 what CWAC module you are having issues with, and be sure to include source code 
 and stack traces if you are encountering crashes.
 
@@ -196,6 +185,7 @@ Do not ask for help via Twitter.
 
 Release Notes
 -------------
+- v1.0.2: fixed manifest for merging, added `cwac-` prefix to JAR
 - v1.0.1: added Gradle build files and published AAR as an artifact
 - v1.0.0: anointed major release
 - v0.6.2: added more fail-safes around `WakeLock` acquisition and release
