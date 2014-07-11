@@ -138,9 +138,9 @@ from happening, you
 [will need to add a `-keep` line to your ProGuard configuration file](http://developer.android.com/guide/developing/tools/proguard.html#configuring)
 (e.g., `proguard.cfg`) to stop ProGuard from renaming it.
 
-Over time, this portion of the framework will be expanded
-further to help consolidate a good usage pattern for
-managing alarms.
+Limitations
+-----------
+Your `BroadcastReceiver` and your `WakefulIntentService` need to be in the same process.
 
 Dependencies
 ------------
