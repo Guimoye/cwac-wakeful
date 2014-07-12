@@ -80,6 +80,9 @@ abstract public class WakefulIntentService extends IntentService {
     PendingIntent pi=PendingIntent.getBroadcast(ctxt, 0, i, 0);
 
     mgr.cancel(pi);
+
+    ctxt.getSharedPreferences(NAME, 0).edit().remove(LAST_ALARM)
+        .commit();
   }
 
   public WakefulIntentService(String name) {
@@ -107,7 +110,7 @@ abstract public class WakefulIntentService extends IntentService {
     }
     finally {
       PowerManager.WakeLock lock=getLock(this.getApplicationContext());
-      
+
       if (lock.isHeld()) {
         lock.release();
       }
