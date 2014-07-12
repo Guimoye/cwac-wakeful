@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.11.+'
+        classpath 'com.android.tools.build:gradle:0.12.+'
         classpath 'com.github.dcendents:android-maven-plugin:1.0'
     }
 }
@@ -11,11 +11,11 @@ buildscript {
 apply plugin: 'android-library'
 apply plugin: 'android-maven'
 
-version '1.0.2'
+version '1.0.3'
 group 'com.commonsware.cwac'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
+    // compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 android {
