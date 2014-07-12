@@ -130,17 +130,15 @@ class, passing in the `AlarmListener` and a `Context` (e.g.,
 the activity that is trying to set up the alarms). If you are only
 scheduling alarms using the single provided `PendingIntent`, you
 can also call `cancelAlarms()` on the `WakefulIntentService` class
-to cancel any outstanding alarms.
+to cancel any outstanding alarms. Note that `scheduleAlarms()`
+and `cancelAlarms()` perform disk I/O and should be called on a
+background thread.
 
 For production use, ProGuard may rename your `AlarmListener`
 class, which will foul up access to your metadata. To stop this
 from happening, you
 [will need to add a `-keep` line to your ProGuard configuration file](http://developer.android.com/guide/developing/tools/proguard.html#configuring)
 (e.g., `proguard.cfg`) to stop ProGuard from renaming it.
-
-Over time, this portion of the framework will be expanded
-further to help consolidate a good usage pattern for
-managing alarms.
 
 Dependencies
 ------------
@@ -152,7 +150,7 @@ that do not work on API Level 7 and are not noted as requiring a higher version.
 
 Version
 -------
-This is version v1.0.2 of this module, meaning it is for realz.
+This is version v1.0.3 of this module, meaning it is for realz.
 
 Demo
 ----
@@ -185,6 +183,7 @@ Do not ask for help via Twitter.
 
 Release Notes
 -------------
+- v1.0.3: fixed bug in `cancelAlarms()`
 - v1.0.2: fixed manifest for merging, added `cwac-` prefix to JAR
 - v1.0.1: added Gradle build files and published AAR as an artifact
 - v1.0.0: anointed major release
