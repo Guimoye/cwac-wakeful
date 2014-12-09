@@ -187,6 +187,7 @@ Do not ask for help via Twitter.
 
 Release Notes
 -------------
+- v1.0.4: added exception handler to catch any under-locked `WakeLock` runtime errors
 - v1.0.3: fixed bug in `cancelAlarms()`
 - v1.0.2: fixed manifest for merging, added `cwac-` prefix to JAR
 - v1.0.1: added Gradle build files and published AAR as an artifact
