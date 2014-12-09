@@ -1,5 +1,5 @@
 /***
-  Copyright (c) 2009-11 CommonsWare, LLC
+  Copyright (c) 2009-14 CommonsWare, LLC
   
   Licensed under the Apache License, Version 2.0 (the "License"); you may
   not use this file except in compliance with the License. You may obtain
@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PowerManager;
+import android.util.Log;
 
 abstract public class WakefulIntentService extends IntentService {
   abstract protected void doWakefulWork(Intent intent);
@@ -112,7 +113,13 @@ abstract public class WakefulIntentService extends IntentService {
       PowerManager.WakeLock lock=getLock(this.getApplicationContext());
 
       if (lock.isHeld()) {
-        lock.release();
+        try {
+          lock.release();
+        }
+        catch (Exception e) {
+          Log.e(getClass().getSimpleName(),
+              "Exception when releasing wakelock", e);
+        }
       }
     }
   }
