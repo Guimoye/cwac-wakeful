@@ -154,7 +154,7 @@ that do not work on API Level 7 and are not noted as requiring a higher version.
 
 Version
 -------
-This is version v1.0.3 of this module, meaning it is for realz.
+This is version v1.0.5 of this module, meaning it is for realz.
 
 Demo
 ----
@@ -187,6 +187,7 @@ Do not ask for help via Twitter.
 
 Release Notes
 -------------
+- v1.0.5: updated to Android Studio 1.0 and new AAR publishing system
 - v1.0.4: added exception handler to catch any under-locked `WakeLock` runtime errors
 - v1.0.3: fixed bug in `cancelAlarms()`
 - v1.0.2: fixed manifest for merging, added `cwac-` prefix to JAR
