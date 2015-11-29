@@ -166,6 +166,14 @@ thread. All of this is set up via a `DemoActivity` (required
 to move the application out of the "stopped" state on Android 3.1+),
 and if needed on a reboot.
 
+Additional Documentation
+------------------------
+[The Busy Coder's Guide to Android Development](https://commonsware.com/Android)
+has two chapters on `AlarmManager` and `JobScheduler` that demonstrate
+this library and its use cases. Also, the main series of tutorials
+use `WakefulIntentService` as well, so you can see its use in a somewhat
+more complex app.
+
 License
 -------
 The code in this project is licensed under the Apache
