@@ -91,7 +91,7 @@ a `PendingIntent`, and a `Context`, and your mission is to schedule
 your alarms using the supplied `PendingIntent`. You also implement
 `sendWakefulWork()`, which is passed a `Context`, and is where
 you call `sendWakefulWork()` upon your `WakefulIntentService`
-implementation. And, you need to implement `getMaxAge()`, which
+implementation. And, you need to implement `getMaxAge(Context)`, which
 should return the time in milliseconds after which, if we have
 not seen an alarm go off, we should assume that the alarms were
 canceled (e.g., application was force-stopped by the user), and
@@ -154,7 +154,7 @@ that do not work on API Level 7 and are not noted as requiring a higher version.
 
 Version
 -------
-This is version v1.0.5 of this module, meaning it is for realz.
+This is version v1.1.0 of this module, meaning it is for realz.
 
 Demo
 ----
@@ -205,6 +205,7 @@ Again, the [contribution guidelines](CONTRIBUTING.md) should help here.
 
 Release Notes
 -------------
+- v1.1.0: upgraded Gradle/build tools, added Context parameter to getMaxAge()
 - v1.0.5: updated to Android Studio 1.0 and new AAR publishing system
 - v1.0.4: added exception handler to catch any under-locked `WakeLock` runtime errors
 - v1.0.3: fixed bug in `cancelAlarms()`

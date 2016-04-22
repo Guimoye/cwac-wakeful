@@ -8,7 +8,7 @@ repositories {
 
 dependencies {
     debugCompile project(':wakeful')
-    releaseCompile 'com.commonsware.cwac:wakeful:1.0.+'
+    releaseCompile 'com.commonsware.cwac:wakeful:1.1.+'
 }
 
 android {
