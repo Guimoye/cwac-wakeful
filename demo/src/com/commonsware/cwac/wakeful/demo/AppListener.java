@@ -32,7 +32,7 @@ public class AppListener implements WakefulIntentService.AlarmListener {
     WakefulIntentService.sendWakefulWork(ctxt, AppService.class);
   }
 
-  public long getMaxAge() {
+  public long getMaxAge(Context ctxt) {
     return(AlarmManager.INTERVAL_FIFTEEN_MINUTES*2);
   }
 }

@@ -64,7 +64,7 @@ abstract public class WakefulIntentService extends IntentService {
     if (lastAlarm == 0
         || force
         || (System.currentTimeMillis() > lastAlarm && System.currentTimeMillis()
-            - lastAlarm > listener.getMaxAge())) {
+            - lastAlarm > listener.getMaxAge(ctxt))) {
       AlarmManager mgr=
           (AlarmManager)ctxt.getSystemService(Context.ALARM_SERVICE);
       Intent i=new Intent(ctxt, AlarmReceiver.class);
@@ -129,6 +129,6 @@ abstract public class WakefulIntentService extends IntentService {
 
     void sendWakefulWork(Context ctxt);
 
-    long getMaxAge();
+    long getMaxAge(Context ctxt);
   }
 }
