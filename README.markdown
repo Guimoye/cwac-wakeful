@@ -93,8 +93,8 @@ your alarms using the supplied `PendingIntent`. You also implement
 you call `sendWakefulWork()` upon your `WakefulIntentService`
 implementation. And, you need to implement `getMaxAge(Context)`, which
 should return the time in milliseconds after which, if we have
-not seen an alarm go off, we should assume that the alarms were
-canceled (e.g., application was force-stopped by the user), and
+not seen an alarm go off, you should assume that the alarms were
+canceled (e.g., application was force-stopped by the user) and
 should reschedule them.
 
 Then, create an XML metadata file where you identify the class
