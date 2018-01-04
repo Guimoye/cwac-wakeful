@@ -1,6 +1,14 @@
 CWAC Wakeful: Staying Awake At Work
 ===================================
 
+**UPDATE 2017-09-28**: Users of this library should migrate [to `JobIntentService`](https://developer.android.com/reference/android/support/v4/app/JobIntentService.html) from the Android Support Libraries. That class covers the primary `WakefulIntentService` use case, is officially supported, and helps with the Android 8.0+ limitation on the life of background services. For the classic `WakefulIntentService` pattern of just overriding `doWakefulWork()`: changing the superclass, refactoring that method to `onHandleWork()`, and using `enqueueWork()` to start the work, should be all that is needed to switch to `JobIntentService`.
+
+This library is officially discontinued, unless some use case arises where `JobIntentService` is unsuitable. If you think that you have one, file an issue here.
+
+The rest of the documentation remains for the historical (and possibly hysterical) record.
+
+-----
+
 The recommended pattern for Android's equivalent to cron
 jobs and Windows scheduled tasks is to use `AlarmManager`.
 This works well when coupled with an `IntentService`, as the
@@ -93,8 +101,8 @@ your alarms using the supplied `PendingIntent`. You also implement
 you call `sendWakefulWork()` upon your `WakefulIntentService`
 implementation. And, you need to implement `getMaxAge(Context)`, which
 should return the time in milliseconds after which, if we have
-not seen an alarm go off, we should assume that the alarms were
-canceled (e.g., application was force-stopped by the user), and
+not seen an alarm go off, you should assume that the alarms were
+canceled (e.g., application was force-stopped by the user) and
 should reschedule them.
 
 Then, create an XML metadata file where you identify the class
@@ -183,7 +191,7 @@ file.
 Questions
 ---------
 If you have questions regarding the use of this code, please post a question
-on [StackOverflow](http://stackoverflow.com/questions/ask) tagged with
+on [Stack Overflow](http://stackoverflow.com/questions/ask) tagged with
 `commonsware-cwac` and `android` after [searching to see if there already is an answer](https://stackoverflow.com/search?q=[commonsware-cwac]+wakefulintentservice). Be sure to indicate
 what CWAC module you are having issues with, and be sure to include source code 
 and stack traces if you are encountering crashes.
