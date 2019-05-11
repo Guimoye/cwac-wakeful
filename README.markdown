@@ -1,11 +1,13 @@
 CWAC Wakeful: Staying Awake At Work
 ===================================
 
-**UPDATE 2017-09-28**: Users of this library should migrate [to `JobIntentService`](https://developer.android.com/reference/android/support/v4/app/JobIntentService.html) from the Android Support Libraries. That class covers the primary `WakefulIntentService` use case, is officially supported, and helps with the Android 8.0+ limitation on the life of background services. For the classic `WakefulIntentService` pattern of just overriding `doWakefulWork()`: changing the superclass, refactoring that method to `onHandleWork()`, and using `enqueueWork()` to start the work, should be all that is needed to switch to `JobIntentService`.
+**UPDATE 2017-09-28**: Users of this library should migrate [to `JobIntentService`](https://developer.android.com/reference/androidx/core/app/JobIntentService) or [`WorkManager`](https://developer.android.com/reference/androidx/work/WorkManager?hl=en) from Android Jetpack. Those classes cover the primary `WakefulIntentService` use case, are officially supported, and help with the Android 8.0+ limitation on the life of background services. For the classic `WakefulIntentService` pattern of just overriding `doWakefulWork()`, migration to `JobIntentService` is a matter of changing the superclass, refactoring that method to `onHandleWork()`, and using `enqueueWork()` to start the work.
 
 This library is officially discontinued, unless some use case arises where `JobIntentService` is unsuitable. If you think that you have one, file an issue here.
 
 The rest of the documentation remains for the historical (and possibly hysterical) record.
+
+This repository will be removed from public access on 1 December 2019.
 
 -----
 
